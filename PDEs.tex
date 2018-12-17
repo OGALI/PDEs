@@ -1,0 +1,272 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\begin{document}
+\section{The Heat Equation}
+\subsection{Homogenous Boundary conditions (Dirichlet) (BC of the first Kind)}
+
+\begin{equation}
+	\begin{cases}
+    u_t = ku_{xx} &\quad\quad\quad\text{The PDE}\\
+    u(0,t)=0 &\quad\quad\quad\text{for $t>0$ (Boundary condition)}\\
+    u(L,t) =0 &\quad\quad\quad\text{for $t>0$ (Boundary condition)}\\
+    u(x,0)  = f(x) &\quad\quad\quad\text{for $0<x<L$ (Initial Condition)}\\
+  \end{cases}
+\end{equation}
+In this case the value of $k$ in the PDE could be given by the following:
+\begin{align}
+	k=\alpha^{2}=\frac{\kappa}{\rho s}
+\end{align}
+Here, $\alpha^2$ is known as the thermal diffusivity and depend on the property of the material. $\kappa$ is the thermal conductivity and $\rho$ is the density of the materials and $s$ is the specific heat of the material. Usually, you are just given $k$.
+
+The first step in solving these PDEs is to assume that the solution $u$ can be separated into its time components and position component (i.e. $u(x,t)=X(x)*T(t)$, for compactness $u=XT$). Here capital $X$ is the solution for of the PDE only taking into account the position and capital $T$ is the solution of the PDE only taking into account time. $X$ and $T$ are not variables, but are functions; $X$ is a function of position $x$ and $T$ is a function of time $t$. So far we have the following (our solution $u$ can be separated into its component $X$ and $T$):
+\begin{equation}
+	u=XT
+\end{equation}
+From you previous math, classes, when you have a solution of a differential equation, you can just plug it in the differential equation to see if it works or find restrictions etc. So lets do that:
+
+\begin{align}
+	u_{t} &= ku_{xx} \Longleftrightarrow \frac{\partial u}{\partial t} = k*\frac{\partial^{2} u}{\partial x^2}
+\end{align}
+We know that our solution $u$ is just $u=XT$, so we can plug that in the PDE:
+\begin{align}
+	\frac{\partial}{\partial t}\big(XT\big) = k*\frac{\partial^{2} }{\partial x^2}\big(XT\big)
+\end{align}
+Now all we have to do is to take the derivatives, recall that when you take a partial derivative with respect to $t$ and you have variables $x$, you treat $x$ as a constant and thus it remains unaffected:
+\begin{align}
+	X\frac{\partial}{\partial t}\big(T\big) = k*T*\frac{\partial^{2} }{\partial x^2}\big(X\big) \Longleftrightarrow X\frac{\partial T}{\partial t} = k*T*\frac{\partial^{2}X }{\partial x^2}
+\end{align}
+For simplicity, we can express a derivative by a prime symbol ($'$):
+\begin{equation}
+	XT'=kX''T
+\end{equation}
+We now try to separate the variables so that only X functions are on one side and only T expression are on the other:
+\begin{align}
+	\frac{1}{k}\frac{T'}{T}=\frac{X''}{X}
+\end{align}
+Notice here (this is the key realization), that you now have functions of one variable on one side and functions of the other variable on the other side. In this case, we have a function of $x$ on one side and a function of $t$ on the other side; these two variables are independent (i.e. time does not depend on where you are, and where you are does not depend on time since you are solving for $t>0$ for $0<x<L$: the whole rod at all times). It's like saying, if you change time (or position), you position (or time) has to change, but this is not the case since the solution is $u$ is supposed to get the temperature of the rod anywhere, anytime. Thus, for this equation to still be valid, it must be equal to a constant (call it $\lambda$). [update] it is equal to a constant since, if you change time, you dont want your position to necessarly change, you want the other side to stay the same (if you are looking at the temperature distribution at a specific point for all time), thus, you want the position (the other side of the equation) to stay the same:
+\begin{align}
+	\frac{T'}{T}=\frac{X''}{X}=-\lambda
+\end{align}
+Here we put a negative in front of $\lambda$ because our equation will be nicer, but this is not necessary. From equation (9), we can see that we can extract two different equations:
+\begin{align}
+	\frac{T'}{T}=-\lambda &\Longleftrightarrow T'+\lambda kT=0 \\
+	\frac{X''}{X}=-\lambda &\Longleftrightarrow X''+\lambda X=0
+\end{align} 
+We now have two equation (two ordinary differential equations) that can be solved separately. Where equation (10) represent only the component of the solution that depends on position and will give a solution $X$ and where equation (11) represents only the time component of the solution. To obtain the full solution $u$, remember that you have to multiply the position component $X$ and the time component $T$ (i.e. $u=XT$). This will be done at the end once $X$ and $T$ have been determined.
+
+Since, we know have two ODEs to solve, we have to chose which one to solve first, we usually begin by solving the position component $X$ first. Thus we begin our analysis by solving:
+\begin{align}
+	 X''+\lambda X=0
+\end{align}
+Notice that this is a second order ODE and thus we need 2 values of the solution. These values can be extracted from the boundary condition given initially by the problem. The issue that we have here is that the boundary conditions given by the problem are in terms of $u$ and we want condition in terms of our ODE $X$. From the problem, we are given:
+\begin{align}
+	u(0,t)&=0 \\
+	u(L,t)& =0
+\end{align}
+However, we know that our solution can be separated into its $X(x)$ and $T(t)$ components. Thus we can write our boundary conditions as follows:
+\begin{align}
+	u(0,t)&=0  \Longleftrightarrow u(x,t) = X(x)T(t)=0 \Longleftrightarrow u(0,t) = X(0)T(t)=0 \Longleftrightarrow X(0)=0\\
+	u(L,t)& =0 \Longleftrightarrow X(L) = 0
+\end{align}
+In the last step ($u(0,t) = X(0)T(t)=0$), when we have an equality to 0 (in general), one of the terms has to be equal to 0. In this case, it is either the $X(0)$ term, or the $T(t)$ term. However, we don't want to fix our time solution to 0 for all time, this will result in our solution $u(x,t)=XT=X0=0$ which is trivial. Thus what we do is set $X(0)=0$. A similar procedure can be done for the other boundary condition. Thus now we have the following ODE for X:
+
+\begin{equation}
+	\begin{cases}
+    X''+\lambda X=0&\\
+    X(0)=0 &\\
+    X(L) =0 &\\
+  \end{cases}
+\end{equation}
+Now notice that we have a $\lambda$ constant that we arbitrarily chose our PDE to be equal to in equation (9). As it turns out, depending on the value of $\lambda$, we may get different solutions for this ODE, so we have to take cases for different values of $\lambda$ (i.e. negative, 0, positive values for $\lambda$). Lets do that now:
+
+\subsubsection{Negative $\lambda < 0$ : $\lambda = -\mu^2$}
+We make lambda $-\mu^2$ since we want to force it to be negative. We know that $\mu^2$ is going to be a positive number (because it is squared), then, sticking a negative sign in front, forces that number to be negative. Thus we have $\lambda = -\mu^2$. Since we know the value of $\lambda$, we substitute it into our ODE:
+\begin{align}
+	X''+\lambda X=0&\\
+	X'' -\mu^2 X =0 
+\end{align}
+From MATH-263, we know how to solve this equation, it is simply a second order ode and thus we assume that our solution is of the form $X=e^{rx}$ ($X'=re^{rx}$, $X''=r^2e^{rx}$). We can then, obtain our characteristic equation by plugging in our assumed solution in the equation:
+\begin{align}
+	X'' -\mu^2 X =0\\
+	r^2e^{rx} -\mu^2e^{rt}=0\\
+	e^{rx}(r^2-\mu^2) = 0\\
+	r^2-\mu^2 =0\\
+	r^2 = \mu^2\\
+	r = \pm\mu
+\end{align}
+Notice that we have an equality to zero and thus in equation (22), either the exponential term is equal to 0 or the polynomial term in the brackets is equal to zero. However, the exponential can never be equal to zero and thus only the polynomial can be equal to 0.
+
+We now have our values for $r$ to plugin into the our assumed solution form ($X=e^{rt}$), thus our solution for $X$ becomes:
+\begin{equation}
+	X=Ae^{\mu x} + Be^{-\mu x}
+\end{equation}
+We can now use our boundary condition in (17) to determine the values for $A$ and $B$.
+\begin{align}
+	X(0)=0 & \Longleftrightarrow 0=Ae^{\mu 0} + Be^{-\mu 0} \Longleftrightarrow 0=A + B \Longleftrightarrow A=-B\\
+	X(L)=0 & \Longleftrightarrow 0=Ae^{\mu L} + Be^{-\mu L} \quad\text{we know however that $A=-B$}\\
+	0=-Be^{\mu L} + Be^{-\mu L} &\Longleftrightarrow 0 = B(-e^{\mu L} + e^{-\mu L}) 
+\end{align}
+Notice that in equation (29), that we have and equality to zero (thus one term has to be equal to zero) and the exponentials can never be equal to 0, thus:
+\begin{align}
+	B&=0\\
+	A&=0 \quad\text{since $A=-B$}
+\end{align}
+having $A$ and $B$ equal to 0 means that our solution for the $X$ component of our final solution $u$ will be equal to zero and that is a trivial solution (i.e. $u=XT=0T=0$)
+
+\subsubsection{Zero $\lambda=0$}
+We now assume that $\lambda=0$, and thus we can plug that in to our ODE from equation (17):
+\begin{align}
+	X''+\lambda X&=0\\
+	X''+0X&=0\\
+	X''&=0;
+\end{align}
+This is just a simple ODE and we can obtain the solution simply by integrating both sides twice:
+
+\begin{equation}
+	X=ax+b
+\end{equation}
+We can then use the boundary conditions in equation (17) to find the constant $a$ and $b$ by plugging them into the ODE (35):
+\begin{align}
+	X(0)=0 & \Longleftrightarrow X=ax+b\Longleftrightarrow 0=a(0)+b \Longleftrightarrow 0=b \\
+	X=ax &\quad \text{since $b=0$}\\
+	 X(L) =0 & \Longleftrightarrow X=ax\Longleftrightarrow 0 = aL  \Longleftrightarrow 0=a
+\end{align}
+Notice that in equation (38) that we have an equality to 0 and thus, either ($a$ or $L$) are equal to 0. Since $L$ is a length (of the rod), it cannot be 0 and thus, $a$ is 0. We again obtain a trivial solution since both $a$ and $b$ are 0 and our total solution $u$ would be trivial (i.e. $u=XT=0T=0$)
+
+\subsubsection{Positive $\lambda>0$ : $\lambda = \mu^2$}
+Here we set $\lambda=\mu^2$ because it would force $\lambda$ to be a positive number since a number squared is always positive. We can thus replace that value of lambda in our ODE:
+\begin{align}
+	X'' +\lambda X =0\\
+	X''+\mu^2X=0
+\end{align}
+From MATH-263, we know how to solve this equation, it is simply a second order ode and thus we assume that our solution is of the form $X=e^{rx}$ ($X'=re^{rx}$, $X''=r^2e^{rx}$). We can then, obtain our characteristic equation by plugging in our assumed solution in the equation:
+\begin{align}
+	X'' +\mu^2 X =0\\
+	r^2e^{rx} +\mu^2e^{rt}=0\\
+	e^{rx}(r^2+\mu^2) = 0\\
+	r^2+\mu^2 =0\\
+	r^2 = -\mu^2\\
+	r = \pm\mu i
+\end{align}
+Notice that we have an equality to zero and thus in equation (43), either the exponential term is equal to 0 or the polynomial term in the brackets is equal to zero. However, the exponential can never be equal to zero and thus only the polynomial can be equal to 0.
+
+We now have our values for $r$ to plugin into the our assumed solution form ($X=e^{rt}$), thus our solution for $X$ becomes:
+\begin{equation}
+	X=Ae^{\mu xi} + Be^{-\mu xi}
+\end{equation}
+Notice that the exponentials are complex here and thus they can be converted into consines and sines using Euler's identity (i.e. $e^{\mu x i} = cos(\mu x)+i*sin(\mu x)$). Thus our solution for $X$ becomes:
+\begin{align}
+	X=Acos(\mu x)+Bsin(\mu x)
+\end{align}
+We can again use the boundary conditions to find the constant $A$ and $B$:
+\begin{align}
+	X(0)=0 & \Longleftrightarrow X=Acos(\mu x)+Bsin(\mu x) \Longleftrightarrow 0 = A\\
+	X &= Bsin(\mu x) \quad \text{since $A=0$}\\
+	X(L)=0 & \Longleftrightarrow X = Bsin(\mu x) \Longleftrightarrow 0=Bsin(\mu L)
+\end{align}
+Notice that in equation (51) that again we have an equality to 0, thus either constant $B$ has to be equal to 0 or the $sin(\mu L)$. We do not want $B$ to be equal to 0 since we will have both $A$ and $B$ be 0 and have a trivial solution again (i.e. $u=XT=0T=0$). Thus we set the $sin(\mu x)$ term to be equal to 0:
+\begin{align}
+	sin(\mu L) = 0
+\end{align}
+The sine function is only 0 at multiples of $\pi$. Thus we have:
+\begin{align}
+	\mu L = n\pi \quad n=1, 2, 3 ...
+\end{align}
+Notice here that $n$ starts from 1 rather than 0 since if $n=0$ we would have ($\mu L = 0 \leftrightarrow \mu = 0$) which was the case where $\lambda = 0$. Here we set $\lambda>0$ strictly, thus we start from 1. Solving for $\mu$ and converting the expression in terms of lambda using ($\lambda=\mu^2$):
+\begin{align}
+	\mu L = n\pi \quad n=1, 2, 3 ...\\
+	\mu = \frac{n\pi}{L} \Leftrightarrow \mu^2 = \bigg(\frac{n\pi}{L}\bigg)^2 \Leftrightarrow \lambda = \bigg(\frac{n\pi}{L}\bigg)^2 &\quad n=1,2,3...
+\end{align}
+So here instead of finding the value of $B$ we found values for $\lambda$ so that $B \neq 0$. Essentially, what we have found is the only values of $\lambda$ so that we don't have a trivial solution (i.e. $u(x,t)=0$). In other words, if we set $\lambda$ to anything other than what we found in equation (55), we have a trivial solution. So we better take that value of lambda and plug it in everywhere lol. 
+
+Going back to the solution for $X$, we found $A$ to be 0 and we found $\lambda$ so that $b$ is not 0, thus we have:
+\begin{align}
+	X=Bsin(\mu L) \quad \text{using $\lambda=\mu^2$} \Longleftrightarrow X=Bsin(\sqrt{\lambda} L)\\
+	X=B_nsin\bigg(\frac{n\pi}{L} x\bigg) \quad n=1,2,3...
+\end{align}
+Here we denote $B$ by $B_n$ since the values of the constant $B$ will depend on the value of $n$. Sidenote, equation (57) is called the eigenfunction, and equation (55) is called the eigenvalues
+
+So we are done for the solution of $X$. We now try to solve for the solution $T$.
+
+\subsubsection{Solution for $T$}
+recall that we have the following ODE for $T$:
+\begin{equation}
+	T'+\lambda k T=0
+\end{equation}
+However, we have found the only $\lambda$ values so that we don't have a trivial solution. So we plugin the value of $\lambda$ that we have found previously here:
+\begin{equation}
+	T'+\bigg(\frac{n\pi}{L}\bigg)^2 k T=0
+\end{equation}
+This is a simple ODE again, from MATH-263, we know how to solve this equation, it is simply a first order ode and thus we assume that our solution is of the form $T=e^{rt}$ ($T'=re^{rt}$). We can then, obtain our characteristic equation by plugging in our assumed solution in the equation (we could also find a solution using other methods since method doesn't give us a fundamental set of solution but we don't need that):
+\begin{align}
+	T'+\bigg(\frac{n\pi}{L}\bigg)^2 kT=0 \\
+	re^{rt} + \bigg(\frac{n\pi}{L}\bigg)^2 k e^{rt} = 0\\
+	e^{rt}\bigg(r+\bigg(\frac{n\pi}{L}\bigg)^2 k\bigg )=0 \\
+	r+\bigg(\frac{n\pi}{L}\bigg)^2 k= 0 \\
+	r=-\bigg(\frac{n\pi}{L}\bigg)^2k
+\end{align}
+We have found the value of $r$ to plugin into our assumed solution form $T=e^{rt}$:
+\begin{equation}
+	T=e^{-k\big(\frac{n\pi}{L}\big)^2t} \quad n=1,2,3...
+\end{equation}
+
+We are done! We found solution for $X$ and $T$ and our full solution is ($u=X*T$) so we just multiply them.
+\subsection{Solution}
+So we have found so far:
+\begin{align}
+	X=B_nsin\bigg(\frac{n\pi}{L} x\bigg) \quad n=1,2,3... \\
+	T=e^{-k\big(\frac{n\pi}{L}\big)^2t} \quad n=1,2,3...
+\end{align}
+To obtain the full solution ($u=XT$) we multiply these two together:
+\begin{align}
+	u=XT=B_nsin\bigg(\frac{n\pi}{L} x\bigg)*e^{-k\big(\frac{n\pi}{L}\big)^2t} \quad n=1,2,3...
+\end{align}
+Now this is a tone of solutions at the same time since $n$ could be any value ($n=1,2,3...$). To obtain the full solution we take a linear combination of all these solution together and then try to find values of $B_n$ for this to work. So to take a linear combination, we just add up the solution together (we do that with a sum)
+\begin{equation}
+	u(x,t) = \sum_{n=1}^{\infty} B_nsin\bigg(\frac{n\pi}{L} x\bigg)*e^{-k\big(\frac{n\pi}{L}\big)^2t}
+\end{equation}
+Now we have to find values for the coefficient $B_n$ for this to work (we added a bunch of solution together, but we have to scale them accordingly to get the full correct solution). By the way, remember we have an initial condition that we didn't use from equation (1) (i.e. $u(x,0) = f(x)$). we use it now by plugging it in equation (69):
+\begin{align}
+	&u(x,0) = f(x) \Longleftrightarrow u(x,t) = \sum_{n=1}^{\infty} B_nsin\bigg(\frac{n\pi}{L} x\bigg)*e^{-k\big(\frac{n\pi}{L}\big)^2} \Longleftrightarrow f(x) = \sum_{n=1}^{\infty} B_nsin\bigg(\frac{n\pi}{L} x\bigg)*e^{-k\big(\frac{n\pi}{L}\big)^2*0}\\
+	&f(x) = \sum_{n=1}^{\infty} B_nsin\bigg(\frac{n\pi}{L} x\bigg)
+\end{align}
+Now this is where we use the fourier series (or consine series if this was as cosine function). We multiply both sides by the sine function we have on the right hand side of equation (71) (but we replace $n$ by $m$) and integrate over one half the period (here from 0 to L):
+\begin{align}
+	\int_0^L f(x)sin\bigg(\frac{m\pi}{L} x\bigg)dx = \int_0^L \sum_{n=1}^{\infty} B_nsin\bigg(\frac{n\pi}{L} x\bigg)sin\bigg(\frac{m\pi}{L} x\bigg)dx
+\end{align}
+We now just interchange the order of integration of equation (72) on the right hand side:
+\begin{align}
+	\int_0^L f(x)sin\bigg(\frac{m\pi}{L} x\bigg)dx = \sum_{n=1}^{\infty} \int_0^L  B_nsin\bigg(\frac{n\pi}{L} x\bigg)sin\bigg(\frac{m\pi}{L} x\bigg)dx
+\end{align}
+Here, when looking at the right hand side of equation (73), the integral is always equal to 0 except when ($n=m$). Since all other values are zero, except that one value of $n$, the sum reduces to a single function where $n=m$ (Also since $B_n$ is a constant it can be moved out of the integral):
+\begin{align}
+	\int_0^L f(x)sin\bigg(\frac{m\pi}{L} x\bigg)dx =\int_0^L  B_nsin\bigg(\frac{m\pi}{L} x\bigg)sin\bigg(\frac{m\pi}{L} x\bigg)dx\\
+	\int_0^L f(x)sin\bigg(\frac{m\pi}{L} x\bigg)dx =B_n\int_0^L  \bigg[sin\bigg(\frac{m\pi}{L} x\bigg)\bigg]^2dx 
+\end{align} 
+The value of the integral on the right hand side is just $L/2$ (it is know, just do it on wolfram), thus we have:
+\begin{align}
+	\int_0^L f(x)sin\bigg(\frac{m\pi}{L} x\bigg)dx =B_n *\frac{L}{2}
+\end{align}
+solving for $B_n$ we obtain:
+\begin{align}
+	 B_n= \frac{2}{L}\int_0^L f(x)sin\bigg(\frac{m\pi}{L} x\bigg)dx
+\end{align}
+So all we have to do is do the integral if given a function $f(x)$ (usually the integral is done by integration by parts) and we will have all the values of $b_n$ so that we can take a linear combination of all the solutions (usually, you are told you can leave your coefficients $B_n$ in integral forms, but not with Pengfei Guan lol).
+
+So our solution is:
+\begin{align}
+	&u(x,t) = \sum_{n=1}^{\infty} B_nsin\bigg(\frac{n\pi}{L} x\bigg)*e^{-k\big(\frac{n\pi}{L}\big)^2t} \quad \text{$B_n$ is given by:}\\
+	 &B_n= \frac{2}{L}\int_0^L f(x)sin\bigg(\frac{m\pi}{L} x\bigg)dx
+\end{align}
+
+\subsection{SideNote[update]}
+You never need to check for $\lambda<0$ as it is always trivial and you also do not need to check for $\lambda=0$ since in the case that $\lambda=0$ is not trivial, its solution can be captured directly by solving the case where $\lambda>0$. Simply solve the case where $\lambda>0$ and if the eigenfunction (see equation 57) that you find is a "cosine" function, than rather than starting you solution from $n=1,2,3...$ start from $n=0,1,2,3...$. On the other hand, if you eigenfunction is a "sine" function, start your solution at $n=1,2,3...$
+
+\end{document}
